@@ -5,6 +5,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
+const { ValidationError } = require('sequelize');
 
 
 // Create a variable called `isProduction` that will be `true` if the environment
@@ -66,6 +67,7 @@ if (!isProduction) {
     next(err);
   });
 
+    // Process sequelize errors
   app.use((err, _req, _res, next) => { 
     // check if error is a Sequelize error:
     if (err instanceof ValidationError) {
